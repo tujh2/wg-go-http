@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"os/exec"
 	"reflect"
 	"wg-go-http/model"
 	"wg-go-http/wgutils"
@@ -9,6 +10,8 @@ import (
 	"github.com/vishvananda/netlink"
 	"gopkg.in/macaron.v1"
 )
+
+const postUpScript = "postUp.sh"
 
 func wgSetupHandler(ctx *macaron.Context, jsonConfig model.JsonConfig) {
 
@@ -84,5 +87,7 @@ func wgSetupHandler(ctx *macaron.Context, jsonConfig model.JsonConfig) {
 	if err != nil {
 		panic(err)
 	}
+
+	exec.Command("/bin/sh", postUpScript)
 
 }
